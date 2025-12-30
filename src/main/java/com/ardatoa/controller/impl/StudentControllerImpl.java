@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ardatoa.controller.IStudentController;
 import com.ardatoa.dto.DtoStudent;
 import com.ardatoa.dto.DtoStudentIU;
-import com.ardatoa.entites.Student;
 import com.ardatoa.services.IStudentServic;
+
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -28,7 +29,7 @@ public class StudentControllerImpl implements IStudentController{
 	
 	@PostMapping(path = "/save")
 	@Override
-	public DtoStudent saveStudent(@RequestBody DtoStudentIU dtoStudentIU) {
+	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU dtoStudentIU) {
 
 		return studentServic.saveStudent(dtoStudentIU);
 	}
