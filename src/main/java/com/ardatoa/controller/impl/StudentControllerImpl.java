@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ardatoa.controller.IStudentController;
 import com.ardatoa.dto.DtoStudent;
 import com.ardatoa.dto.DtoStudentIU;
-import com.ardatoa.services.IStudentServic;
+import com.ardatoa.services.IStudentService;
 
 import jakarta.validation.Valid;
 
@@ -25,33 +25,33 @@ import jakarta.validation.Valid;
 public class StudentControllerImpl implements IStudentController{
 	
 	@Autowired
-	private IStudentServic studentServic;
+	private IStudentService studentService;
 	
 	@PostMapping(path = "/save")
 	@Override
 	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU dtoStudentIU) {
 
-		return studentServic.saveStudent(dtoStudentIU);
+		return studentService.saveStudent(dtoStudentIU);
 	}
 	
 	@GetMapping(path = "/list")
 	@Override
 	public List<DtoStudent> getAllStudents() {
-		return studentServic.getallStudents();
+		return studentService.getallStudents();
 	}
 	
 	@GetMapping(path = "/list/{id}")
 	@Override
 	public DtoStudent getStudentById(@PathVariable(name = "id") Integer id) {
 
-		return studentServic.getStudentById(id);
+		return studentService.getStudentById(id);
 	}
 	
 	@DeleteMapping(path = "/delete/{id}")
 	@Override
 	public void deleteStudent(@PathVariable(name = "id") Integer id) {
 
-		studentServic.deleteStudent(id);
+		studentService.deleteStudent(id);
 		
 	}
 	
@@ -59,7 +59,7 @@ public class StudentControllerImpl implements IStudentController{
 	@Override
 	public DtoStudent updateStudent(@PathVariable(name = "id") Integer id, @RequestBody DtoStudentIU dtoStudentIU) {
 		
-		return studentServic.updateStudent(id, dtoStudentIU);
+		return studentService.updateStudent(id, dtoStudentIU);
 	}
 	
 	

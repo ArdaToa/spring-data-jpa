@@ -8,8 +8,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ardatoa.dto.DtoCourse;
 import com.ardatoa.dto.DtoStudent;
 import com.ardatoa.dto.DtoStudentIU;
+import com.ardatoa.entites.Course;
 import com.ardatoa.entites.Student;
 import com.ardatoa.repository.StudentRepository;
 import com.ardatoa.services.IStudentService;
@@ -35,7 +37,7 @@ public class StudentServiceImpl implements IStudentService{
 	public List<DtoStudent> getallStudents() {
 		List<DtoStudent> dtoList = new ArrayList<>();
 		
-		List<Student> studentList = studentRepository.findAll();
+		List<Student> studentList = studentRepository.findAllStudents();
 		for (Student student : studentList) {
 			DtoStudent dto = new DtoStudent();
 			BeanUtils.copyProperties(student, dto);
@@ -46,13 +48,25 @@ public class StudentServiceImpl implements IStudentService{
 
 	@Override
 	public DtoStudent getStudentById(Integer id) {
-		DtoStudent dto = new DtoStudent(); 
-		Optional<Student> optional = studentRepository.findById(id);
-		if(optional.isPresent()) {
-			Student dbStudent = optional.get();
-			BeanUtils.copyProperties(dbStudent, dto);
+		DtoStudent dtoStudent = new DtoStudent(); 
+		Optional<Student> optional = studentRepository.findStudentById(id);
+		if(optional.isEmpty()) {
+			return null;
 		}
-		return dto;
+		Student dbStudent = optional.get();
+		BeanUtils.copyProperties(dbStudent, dtoStudent);
+		
+		if(dbStudent.getCourses()!=null && !dbStudent.getCourses().isEmpty()) {
+			for (Course course : dbStudent.getCourses()) {
+				DtoCourse dtoCourse = new DtoCourse();
+				BeanUtils.copyProperties(course, dtoCourse);
+				
+				dtoStudent.getCourses().add(dtoCourse);
+				
+			}
+		}
+			
+		return dtoStudent;	
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.ardatoa.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoStudent {
 	
+	private Integer id;
+	
 	private String firstName;
 	
 	private String lastName;
 	
-	
+	private List<DtoCourse> courses = new ArrayList<>();
 	
 }
