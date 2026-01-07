@@ -2,9 +2,12 @@ package com.ardatoa.starter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.ardatoa.configuration.GlobalProperties;
 
 import jakarta.persistence.Entity;
 
@@ -13,6 +16,7 @@ import jakarta.persistence.Entity;
 @EntityScan(basePackages = {"com.ardatoa"})
 @ComponentScan(basePackages = {"com.ardatoa"})
 @EnableJpaRepositories(basePackages = {"com.ardatoa"})
+@EnableConfigurationProperties(value = GlobalProperties.class)
 public class SpringDataJpaApplication {
 
 	public static void main(String[] args) {
